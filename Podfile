@@ -8,9 +8,10 @@ target 'WeatherApp' do
 
   inhibit_all_warnings!
 
-  # Networking/Swift
-  pod 'Alamofire',     '~> 4.7'
-  pod 'ObjectMapper',  '~> 3.3.0'
+  # Networking
+  pod 'Alamofire',             '~> 4.7'
+  pod 'AlamofireObjectMapper', '~> 5.0'
+  pod 'ObjectMapper',          '~> 3.3.0'
  
 
   target 'WeatherAppTests' do

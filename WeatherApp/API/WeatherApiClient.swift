@@ -15,10 +15,12 @@
 
 import Foundation
 import Alamofire
+import AlamofireObjectMapper
+import ObjectMapper
 
 struct WeatherApiConfig {
     
-    //MARK: - Weather Server URL for API Requests later on
+    //MARK: - Our Company Weather Server URL for internal API Requests later on
     static let baseURL = URL(string: "weatherserverURL")!
     
 }
@@ -29,10 +31,6 @@ final class WeatherApiClient {
     
     init(baseUrl: URL) {
         self.baseUrl = baseUrl
-    }
-    
-    func makeUrl(path: String) -> URL {
-        return baseUrl.appendingPathComponent(path)
     }
     
     fileprivate var __authorizedSessionManager: SessionManager?
@@ -63,17 +61,25 @@ final class WeatherApiClient {
         }
     }
     
-    func retrieveCurrentWeather(completion: @escaping (Result<DarkSkyWeather>) -> Void) {
-        let url = makeUrl(path: "retrievehomepagecontent")
-        let params: [String: Any] = []
+    //MARK: - Dark Sky API calls
+    func makeDarkSkyAPIUrl(path: String) -> URL {
+        return DarkSkyAPI.authenticatedBaseURL.appendingPathComponent(path)
+    }
+    
+    func retrieveCurrentWeather(latitude: String,
+                                longitude: String,
+                                completion: @escaping (Result<DarkSkyWeather>) -> Void) {
+        let location = latitude + "," + longitude
+        let url = makeDarkSkyAPIUrl(path: location)
+        let params: [String: Any] = [:]
         sessionManager.request(url,
-                               method: .post,
+                               method: .get,
                                parameters: params)
-            .validate().responseObject { (response: DataResponse<GenericResponse>) in
+            .validate().responseObject { (response: DataResponse<DarkSkyGenResp>) in
+                print(response)
                 switch response.result {
                 case .success(let object):
-                    let r: Result<PaginatedArticles> = object.result()
-                    completion(r)
+                    completion(object.result())
                 case .failure(let error):
                     completion(.failure(error))
                 }

@@ -17,13 +17,15 @@ import Foundation
 import ObjectMapper
 
 class DarkSkyWeather: Mappable {
-    var messageKey: String?
+    var currentTemp:     String?
+    var currentTempIcon: String?
     
     required init?(map: Map) {
         
     }
     
     func mapping(map: Map) {
-        messageKey <- map["message_key"]
+        currentTemp     <- map["currently.temperature"]
+        currentTempIcon <- map["currently.icon"]
     }
 }
