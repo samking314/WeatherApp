@@ -33,18 +33,16 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
     }
 
     func setupWeatherScrollView() {
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: scrollView.frame.height)
+        scrollView.contentSize = CGSize(width: view.frame.width * 2, height: scrollView.frame.size.height)
+        scrollView.isPagingEnabled = true
         
         let currWeather:CurrentWeather = Bundle.main.loadNibNamed("CurrentWeather", owner: self, options: nil)?.first as! CurrentWeather
-        
         let foreWeather:ForecastWeather = Bundle.main.loadNibNamed("ForecastWeather", owner: self, options: nil)?.first as! ForecastWeather
         
-        currWeather.frame = CGRect(x: scrollView.frame.width * 0, y: 0, width: scrollView.frame.width, height: scrollView.frame.height)
-        foreWeather.frame = CGRect(x: scrollView.frame.width * 1, y: 0, width: scrollView.frame.width, height: scrollView.frame.height)
-        
-        scrollView.showsHorizontalScrollIndicator = false
-        
-        scrollView.contentSize = CGSize(width: scrollView.frame.width * 2, height: scrollView.frame.height)
-        scrollView.isPagingEnabled = true
+        currWeather.frame = CGRect(x: scrollView.frame.size.width * 0, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height)
+        foreWeather.frame = CGRect(x: scrollView.frame.size.width * 1, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height)
         
         scrollView.addSubview(currWeather)
         scrollView.addSubview(foreWeather)

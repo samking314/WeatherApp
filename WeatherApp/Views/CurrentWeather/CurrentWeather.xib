@@ -17,23 +17,31 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="☀️" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Slu-zp-5pQ">
-                    <rect key="frame" x="145" y="112.5" width="65" height="72"/>
+                    <rect key="frame" x="130" y="112.5" width="65" height="72"/>
                     <fontDescription key="fontDescription" type="system" pointSize="60"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Weather" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eLS-yd-hBU">
+                    <rect key="frame" x="124" y="40" width="127" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="42°" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ImI-Hq-1Or">
-                    <rect key="frame" x="210" y="148.5" width="48.5" height="36"/>
+                    <rect key="frame" x="195" y="148.5" width="48.5" height="36"/>
                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" red="0.30980392159999998" green="0.72549019609999998" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="Slu-zp-5pQ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-10" id="LjI-eH-yeY"/>
+                <constraint firstItem="Slu-zp-5pQ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-25" id="LjI-eH-yeY"/>
                 <constraint firstItem="ImI-Hq-1Or" firstAttribute="bottom" secondItem="Slu-zp-5pQ" secondAttribute="bottom" id="YgU-W7-iqH"/>
+                <constraint firstItem="eLS-yd-hBU" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ZYv-xf-KbS"/>
                 <constraint firstItem="ImI-Hq-1Or" firstAttribute="leading" secondItem="Slu-zp-5pQ" secondAttribute="trailing" id="e51-FW-0Wj"/>
+                <constraint firstItem="eLS-yd-hBU" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="40" id="eCf-lH-0RA"/>
                 <constraint firstItem="Slu-zp-5pQ" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="h5t-px-QRc"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

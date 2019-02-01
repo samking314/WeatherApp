@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--First-->
+        <!--Weather View Controller-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
                 <viewController id="9pv-A4-QxB" customClass="WeatherViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -22,7 +22,7 @@
                                 <rect key="frame" x="168" y="315" width="39" height="37"/>
                             </pageControl>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2uS-Ub-Fyp">
-                                <rect key="frame" x="10" y="30" width="355" height="275"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="285"/>
                             </scrollView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your location" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ivU-X6-l3X">
                                 <rect key="frame" x="10" y="362" width="355" height="30"/>
@@ -33,19 +33,18 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="2uS-Ub-Fyp" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" constant="10" id="DYe-px-YTi"/>
+                            <constraint firstItem="2uS-Ub-Fyp" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="DYe-px-YTi"/>
                             <constraint firstItem="azK-oR-AdT" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="MCl-QS-pWs"/>
-                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="2uS-Ub-Fyp" secondAttribute="trailing" constant="10" id="T4T-gC-Goc"/>
+                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="2uS-Ub-Fyp" secondAttribute="trailing" id="T4T-gC-Goc"/>
                             <constraint firstItem="ivU-X6-l3X" firstAttribute="top" secondItem="azK-oR-AdT" secondAttribute="bottom" constant="10" id="VP0-lo-MTe"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="ivU-X6-l3X" secondAttribute="trailing" constant="10" id="VbU-dB-LlG"/>
-                            <constraint firstItem="2uS-Ub-Fyp" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="10" id="ZoA-Z1-kvI"/>
+                            <constraint firstItem="2uS-Ub-Fyp" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="ZoA-Z1-kvI"/>
                             <constraint firstItem="azK-oR-AdT" firstAttribute="centerY" secondItem="tsR-hK-woN" secondAttribute="centerY" id="fBP-a9-wZX"/>
                             <constraint firstItem="ivU-X6-l3X" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="10" id="qIP-j5-qmy"/>
                             <constraint firstItem="azK-oR-AdT" firstAttribute="top" secondItem="2uS-Ub-Fyp" secondAttribute="bottom" constant="10" id="qyY-i8-w21"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="pageControl" destination="azK-oR-AdT" id="ETn-fE-Poj"/>
                         <outlet property="scrollView" destination="2uS-Ub-Fyp" id="tJ9-g4-tec"/>
@@ -57,7 +56,4 @@
             <point key="canvasLocation" x="-87.200000000000003" y="-30.134932533733135"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="first" width="30" height="30"/>
-    </resources>
 </document>
