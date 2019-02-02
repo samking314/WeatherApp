@@ -49,7 +49,7 @@ extension DarkSkyGenResp {
         if let value: T = decodeData(key: key) {
             r = .success(value)
         } else if statusCode != 200  {
-            r = .failure(WeatherApiError.apiError(message: "success"))
+            r = .failure(WeatherApiError.apiError(message: "Error Loading Dark Sky Data"))
         }
         if r == nil {
             r = .failure(WeatherApiError.unknownError)

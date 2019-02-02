@@ -11,7 +11,7 @@ import SVProgressHUD
 
 class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegate{
     
-    var darkWeatherData: DarkSkyWeather?
+//    var darkWeatherData: DarkSkyWeather?
     let currWeather: CurrentWeather = .fromNib()
     var foreWeather: ForecastWeather = .fromNib()
     
@@ -66,13 +66,9 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
     func load(completion: @escaping () -> ()) {
         if let location = Locator.main.location
         {
-            WeatherApiClient(baseUrl: DarkSkyAPI.baseURL).retrieveCurrentWeather(latitude: String(location.coordinate.latitude), longitude: String(location.coordinate.longitude)) { (result) in
-                switch result {
-                case .success(let darkWeatherData):
-                    self.darkWeatherData = darkWeatherData
+            WeatherApiClient.sharedDWApi.retrieveDarkSkyWeather(latitude: String(location.coordinate.latitude), longitude: String(location.coordinate.longitude)) { result in
+                if (result) {
                     self.reloadUI()
-                case .failure(let error):
-                    Alert.error(error.localizedDescription)
                 }
                 completion()
             }
@@ -83,11 +79,17 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
     }
     
     func reloadUI() {
-        if let temp = self.darkWeatherData?.currentTemp {
-            self.currWeather.temp.text = String(temp)
+        if let currtemp = UserStore.shared.currentTemperature {
+            self.currWeather.temp.text = String(currtemp) + "°F"
         }
-        if let icon = self.darkWeatherData?.currentTempIcon {
-            self.currWeather.icon.text = String(icon)
+        if let curricon = UserStore.shared.currentWeatherIcon {
+            self.currWeather.icon.text = String(curricon)
+        }
+        if let foresum = UserStore.shared.forecastSummary {
+            self.foreWeather.forecast.text = String(foresum)
+        }
+        if let foreicon = UserStore.shared.forecastWeatherIcon {
+            self.foreWeather.icon.text = String(foreicon)
         }
     }
     

@@ -11,8 +11,8 @@ import UIKit
 
 class ForecastWeather: UIView {
     
-    @IBOutlet weak var icon: UILabel!
-    @IBOutlet weak var temp: UILabel!
+    @IBOutlet weak var icon:     UILabel!
+    @IBOutlet weak var forecast: UILabel!
     
     class func fromNib<T: UIView>() -> T {
         return Bundle.main.loadNibNamed(String(describing: T.self), owner: nil, options: nil)![0] as! T

@@ -16,39 +16,41 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="297"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="☀️" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Slu-zp-5pQ">
-                    <rect key="frame" x="130" y="112.5" width="65" height="72"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="60"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Weather" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eLS-yd-hBU">
-                    <rect key="frame" x="124" y="40" width="127" height="21"/>
+                    <rect key="frame" x="124" y="10" width="127" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="42°" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ImI-Hq-1Or">
-                    <rect key="frame" x="195" y="148.5" width="48.5" height="36"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="☀️" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HHi-ah-19V">
+                    <rect key="frame" x="150" y="96.5" width="75" height="84"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="70"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0°F" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Onz-im-ZLw">
+                    <rect key="frame" x="10" y="190.5" width="355" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" red="0.30980392159999998" green="0.72549019609999998" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="Slu-zp-5pQ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-25" id="LjI-eH-yeY"/>
-                <constraint firstItem="ImI-Hq-1Or" firstAttribute="bottom" secondItem="Slu-zp-5pQ" secondAttribute="bottom" id="YgU-W7-iqH"/>
+                <constraint firstItem="Onz-im-ZLw" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="0in-t6-4vL"/>
+                <constraint firstItem="HHi-ah-19V" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-10" id="4Rh-Rw-mft"/>
+                <constraint firstItem="Onz-im-ZLw" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="ENA-6C-Dzd"/>
                 <constraint firstItem="eLS-yd-hBU" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ZYv-xf-KbS"/>
-                <constraint firstItem="ImI-Hq-1Or" firstAttribute="leading" secondItem="Slu-zp-5pQ" secondAttribute="trailing" id="e51-FW-0Wj"/>
-                <constraint firstItem="eLS-yd-hBU" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="40" id="eCf-lH-0RA"/>
-                <constraint firstItem="Slu-zp-5pQ" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="h5t-px-QRc"/>
+                <constraint firstItem="eLS-yd-hBU" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="eCf-lH-0RA"/>
+                <constraint firstItem="HHi-ah-19V" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="f3U-3s-cZi"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Onz-im-ZLw" secondAttribute="trailing" constant="10" id="wjV-5P-Cw1"/>
+                <constraint firstItem="Onz-im-ZLw" firstAttribute="top" secondItem="HHi-ah-19V" secondAttribute="bottom" constant="10" id="zTR-c0-4n5"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
-                <outlet property="icon" destination="Slu-zp-5pQ" id="EiK-XD-BlW"/>
-                <outlet property="temp" destination="ImI-Hq-1Or" id="I4Q-fU-zLj"/>
+                <outlet property="icon" destination="HHi-ah-19V" id="QY5-70-oFg"/>
+                <outlet property="temp" destination="Onz-im-ZLw" id="y9H-Zg-r0n"/>
             </connections>
             <point key="canvasLocation" x="138.40000000000001" y="-15.742128935532236"/>
         </view>

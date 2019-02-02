@@ -17,11 +17,17 @@ import Foundation
 import Alamofire
 import AlamofireObjectMapper
 import ObjectMapper
+import SVProgressHUD
 
 struct WeatherApiConfig {
     
-    //MARK: - Our Company Weather Server URL for internal API Requests later on
-    static let baseURL = URL(string: "weatherserverURL")!
+    //MARK: - Dark Sky API Config
+    static let dwBaseURL = URL(string: "https://api.darksky.net/forecast/")!
+    static var dwAuthenticatedBaseURL: URL {
+        return dwBaseURL.appendingPathComponent(DarkSkyConfig.apikey)
+    }
+    
+    //MARK: - place other API Configs below
     
 }
 
@@ -34,25 +40,29 @@ final class WeatherApiClient {
     }
     
     //MARK: - Dark Sky API
+    static let sharedDWApi: WeatherApiClient = {
+        return WeatherApiClient(baseUrl: WeatherApiConfig.dwAuthenticatedBaseURL)
+    }()
+    
     func makeDarkSkyAPIUrl(path: String) -> URL {
-        return DarkSkyAPI.authenticatedBaseURL.appendingPathComponent(path)
+        return baseUrl.appendingPathComponent(path)
     }
     
-    func retrieveCurrentWeather(latitude: String,
-                                longitude: String,
-                                completion: @escaping (Result<DarkSkyWeather>) -> Void) {
+    func retrieveDarkSkyWeather(latitude: String,
+                                longitude: String, completion: @escaping (Bool) -> ()) {
             let location = latitude + "," + longitude
             let url = makeDarkSkyAPIUrl(path: location)
-            Alamofire.request(url, method: .get)
-                .validate().responseObject { (response: DataResponse<DarkSkyGenResp>) in
-                    switch response.result {
-                    case .success(let object):
-                        completion(object.result())
-                    case .failure(let error):
-                        completion(.failure(error))
-                    }
+            Alamofire.request(url, method: .get).responseObject { (response: DataResponse<DarkSkyWeather>) in
+                if let darkSkyWeather = response.result.value {
+                    UserDefaults.standard.set(String(darkSkyWeather.currentTemp ?? 0), forKey: "currentTemperature")
+                    UserDefaults.standard.set(darkSkyWeather.currentTempIcon ?? "rainy", forKey: "currentWeatherIcon")
+                    UserDefaults.standard.set(darkSkyWeather.forecastSum ?? "0", forKey: "forecastSummary")
+                    UserDefaults.standard.set(darkSkyWeather.forecastTempIcon ?? "rainy", forKey: "forecastWeatherIcon")
+                    completion(true)
+                } else {
+                    Alert.error("Error retrieving updated Weather Info")
+                    completion(false)
+                }
             }
-        
     }
-    
 }
