@@ -33,35 +33,7 @@ final class WeatherApiClient {
         self.baseUrl = baseUrl
     }
     
-    fileprivate var __authorizedSessionManager: SessionManager?
-    var authorizedSessionManager: SessionManager? {
-        if let existing = __authorizedSessionManager {
-            return existing
-        }
-        
-        let headers = SessionManager.defaultHTTPHeaders
-        let configuration = URLSessionConfiguration.default
-        configuration.httpAdditionalHeaders = headers
-        
-        let sm = SessionManager(configuration: configuration)
-        __authorizedSessionManager = sm
-        
-        return __authorizedSessionManager
-    }
-    
-    var unauthorizedSessionManager: SessionManager = {
-        return Alamofire.SessionManager.default
-    }()
-    
-    var sessionManager: SessionManager {
-        if let sm = authorizedSessionManager {
-            return sm
-        } else {
-            return unauthorizedSessionManager
-        }
-    }
-    
-    //MARK: - Dark Sky API calls
+    //MARK: - Dark Sky API
     func makeDarkSkyAPIUrl(path: String) -> URL {
         return DarkSkyAPI.authenticatedBaseURL.appendingPathComponent(path)
     }
@@ -69,21 +41,21 @@ final class WeatherApiClient {
     func retrieveCurrentWeather(latitude: String,
                                 longitude: String,
                                 completion: @escaping (Result<DarkSkyWeather>) -> Void) {
-        let location = latitude + "," + longitude
-        let url = makeDarkSkyAPIUrl(path: location)
-        let params: [String: Any] = [:]
-        sessionManager.request(url,
-                               method: .get,
-                               parameters: params)
-            .validate().responseObject { (response: DataResponse<DarkSkyGenResp>) in
-                print(response)
-                switch response.result {
-                case .success(let object):
-                    completion(object.result())
-                case .failure(let error):
-                    completion(.failure(error))
-                }
-        }
+            let url = "https://api.darksky.net/forecast/2b224e64b6ec762d7d4d1443388f7f55/33.748997,-84.387985"
+            let params: [String: Any] = [:]
+            Alamofire.request(url, method: .get, parameters: params)
+                .validate().responseObject {
+                    (response: DataResponse<DarkSkyGenResp>) in
+                    print("HERE")
+                    print(response)
+                    switch response.result {
+                    case .success(let object):
+                        completion(object.result())
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+            }
+        
     }
     
 }

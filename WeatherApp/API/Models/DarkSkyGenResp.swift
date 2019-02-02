@@ -20,8 +20,8 @@ class DarkSkyGenResp: Mappable {
     }
     
     func mapping(map: Map) {
-        statusCode <- map["statusCode"]
-        data       <- map["data"]
+        statusCode <- map["Status Code"]
+        data       <- map["currently"]
         message    <- map["message"]
     }
     
@@ -46,23 +46,10 @@ class DarkSkyGenResp: Mappable {
 extension DarkSkyGenResp {
     func result<T: BaseMappable>(key: String? = nil) -> Result<T> {
         var r: Result<T>?
-        if let value: T = decodeData(key: key), statusCode == 200 {
+        if let value: T = decodeData(key: key) {
             r = .success(value)
-        } else if let message = message, statusCode != 200  {
-            r = .failure(WeatherApiError.apiError(message: message))
-        }
-        if r == nil {
-            r = .failure(WeatherApiError.unknownError)
-        }
-        return r!
-    }
-    
-    func resultAsString() -> Result<String> {
-        var r: Result<String>?
-        if let value = message, statusCode == 200 {
-            r = .success(value)
-        } else if let message = message, statusCode != 200  {
-            r = .failure(WeatherApiError.apiError(message: message))
+        } else if statusCode != 200  {
+            r = .failure(WeatherApiError.apiError(message: "success"))
         }
         if r == nil {
             r = .failure(WeatherApiError.unknownError)

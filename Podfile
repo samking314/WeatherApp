@@ -7,6 +7,8 @@ target 'WeatherApp' do
   use_frameworks!
 
   inhibit_all_warnings!
+  
+  pod 'SCLAlertView',          '~> 0.8'
 
   # Networking
   pod 'Alamofire',             '~> 4.7'
