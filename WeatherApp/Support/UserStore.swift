@@ -12,6 +12,8 @@ class UserStore {
     
     static let shared: UserStore = UserStore()
     
+    static let weatherIcons: [String : String] = ["clear-day":"🌞", "clear-night":"🌚", "rain":"🌧", "snow":"❄️", "sleet":"🌨", "wind":"💨", "fog":"🌁", "cloudy":"🌥", "partly-cloudy-day":"⛅️", "partly-cloudy-night":"☁️", "default":"🌈"] //fun to play around with :)
+    
     var currentTemperature: String? {
         let prefs = UserDefaults.standard
         if let currTemp = prefs.object(forKey: "currentTemperature") as? String{
@@ -22,7 +24,10 @@ class UserStore {
     
     var currentWeatherIcon: String? {
         let prefs = UserDefaults.standard
-        if let currIcon = prefs.object(forKey: "currentWeatherIcon") as? String{
+        if var currIcon = prefs.object(forKey: "currentWeatherIcon") as? String{
+            if let icon = UserStore.weatherIcons[currIcon] {
+                currIcon = icon
+            }
             return currIcon
         }
         return nil
@@ -38,7 +43,10 @@ class UserStore {
     
     var forecastWeatherIcon: String? {
         let prefs = UserDefaults.standard
-        if let foreIcon = prefs.object(forKey: "forecastWeatherIcon") as? String{
+        if var foreIcon = prefs.object(forKey: "forecastWeatherIcon") as? String{
+            if let icon = UserStore.weatherIcons[foreIcon] {
+                foreIcon = icon
+            }
             return foreIcon
         }
         return nil
