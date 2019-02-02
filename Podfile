@@ -9,6 +9,7 @@ target 'WeatherApp' do
   inhibit_all_warnings!
   
   pod 'SCLAlertView',          '~> 0.8'
+  pod 'SVProgressHUD',         '~> 2.2.5'
 
   # Networking
   pod 'Alamofire',             '~> 4.7'

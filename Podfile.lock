@@ -5,12 +5,14 @@ PODS:
     - ObjectMapper (~> 3.3)
   - ObjectMapper (3.3.0)
   - SCLAlertView (0.8)
+  - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
   - AlamofireObjectMapper (~> 5.0)
   - ObjectMapper (~> 3.3.0)
   - SCLAlertView (~> 0.8)
+  - SVProgressHUD (~> 2.2.5)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -18,13 +20,15 @@ SPEC REPOS:
     - AlamofireObjectMapper
     - ObjectMapper
     - SCLAlertView
+    - SVProgressHUD
 
 SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   AlamofireObjectMapper: 3395e698901d8b0e6f48b7d0c43bd47875325102
   ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
   SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: c6efc24cce17399f92fdd7b6b32afae83cb8c6bb
+PODFILE CHECKSUM: e66a46518a3c9d7d5a1d86bd31e39e0fe7611ef3
 
 COCOAPODS: 1.5.3

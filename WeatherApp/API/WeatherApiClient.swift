@@ -41,13 +41,10 @@ final class WeatherApiClient {
     func retrieveCurrentWeather(latitude: String,
                                 longitude: String,
                                 completion: @escaping (Result<DarkSkyWeather>) -> Void) {
-            let url = "https://api.darksky.net/forecast/2b224e64b6ec762d7d4d1443388f7f55/33.748997,-84.387985"
-            let params: [String: Any] = [:]
-            Alamofire.request(url, method: .get, parameters: params)
-                .validate().responseObject {
-                    (response: DataResponse<DarkSkyGenResp>) in
-                    print("HERE")
-                    print(response)
+            let location = latitude + "," + longitude
+            let url = makeDarkSkyAPIUrl(path: location)
+            Alamofire.request(url, method: .get)
+                .validate().responseObject { (response: DataResponse<DarkSkyGenResp>) in
                     switch response.result {
                     case .success(let object):
                         completion(object.result())
