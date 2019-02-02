@@ -50,19 +50,20 @@ final class WeatherApiClient {
     
     func retrieveDarkSkyWeather(latitude: String,
                                 longitude: String, completion: @escaping (Bool) -> ()) {
-            let location = latitude + "," + longitude
-            let url = makeDarkSkyAPIUrl(path: location)
-            Alamofire.request(url, method: .get).responseObject { (response: DataResponse<DarkSkyWeather>) in
-                if let darkSkyWeather = response.result.value {
-                    UserDefaults.standard.set(String(darkSkyWeather.currentTemp ?? 0), forKey: "currentTemperature")
-                    UserDefaults.standard.set(darkSkyWeather.currentTempIcon ?? "rainy", forKey: "currentWeatherIcon")
-                    UserDefaults.standard.set(darkSkyWeather.forecastSum ?? "0", forKey: "forecastSummary")
-                    UserDefaults.standard.set(darkSkyWeather.forecastTempIcon ?? "rainy", forKey: "forecastWeatherIcon")
-                    completion(true)
-                } else {
-                    Alert.error("Error retrieving updated Weather Info")
-                    completion(false)
-                }
+        let location = latitude + "," + longitude
+        let url = makeDarkSkyAPIUrl(path: location)
+        UserStore.shared.weatherApiType = DarkSkyConfig.apiname
+        Alamofire.request(url, method: .get).responseObject { (response: DataResponse<DarkSkyWeather>) in
+            if let darkSkyWeather = response.result.value {
+                UserDefaults.standard.set(String(darkSkyWeather.currentTemp ?? 0), forKey: "currentTemperature")
+                UserDefaults.standard.set(darkSkyWeather.currentTempIcon ?? "rainy", forKey: "currentWeatherIcon")
+                UserDefaults.standard.set(darkSkyWeather.forecastSum ?? "0", forKey: "forecastSummary")
+                UserDefaults.standard.set(darkSkyWeather.forecastTempIcon ?? "rainy", forKey: "forecastWeatherIcon")
+                completion(true)
+            } else {
+                Alert.error("Error retrieving updated Weather Info")
+                completion(false)
             }
+        }
     }
 }
