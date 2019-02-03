@@ -1,4 +1,4 @@
-platform :ios, '9.0'
+platform :ios, '10.0'
 
 source 'https://github.com/CocoaPods/Specs.git'
 
@@ -8,7 +8,6 @@ target 'WeatherApp' do
 
   inhibit_all_warnings!
   
-  pod 'SCLAlertView',          '~> 0.8'
   pod 'SVProgressHUD',         '~> 2.2.5'
 
   # Networking

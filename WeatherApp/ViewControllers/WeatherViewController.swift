@@ -79,7 +79,7 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
                 if (result) {
                     self.reloadUI()
                 } else {
-                    Alert.error("Error retrieving updated Weather Info")
+//                    Alert.error("Error retrieving updated Weather Info")
                 }
             }
         }
@@ -128,7 +128,7 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
                 let placemark = placemark,
                 let location = placemark.first?.location
             else {
-                Alert.error("Error finding this location. Please enter a different location.")
+//                Alert.error("Error finding this location. Please enter a different location.")
                 return
             }
             self.newLoadWithHud(location: location)
