@@ -49,7 +49,7 @@ final class WeatherApiClient {
     }
     
     func retrieveDarkSkyWeather(latitude: String,
-                                longitude: String, completion: @escaping (Bool) -> Void) {
+                                longitude: String, completion: @escaping (Bool) -> ()) {
         let location = latitude + "," + longitude
         let url = makeDarkSkyAPIUrl(path: location)
         UserStore.shared.weatherApiType = DarkSkyConfig.apiname

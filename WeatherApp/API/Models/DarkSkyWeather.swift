@@ -6,6 +6,13 @@
 //  Copyright © 2019 Sam King. All rights reserved.
 //
 
+/**************
+ 
+ TO DO:
+ 1. Format Model to correctly serve ApiClient
+ 
+ **************/
+
 import Foundation
 import ObjectMapper
 

@@ -8,19 +8,16 @@
 
 import UIKit
 import SVProgressHUD
-import CoreLocation
 
 class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegate{
     
+//    var darkWeatherData: DarkSkyWeather?
     let currWeather: CurrentWeather = .fromNib()
     var foreWeather: ForecastWeather = .fromNib()
     
-    var locationSuggestionsControl:  LocationSuggestionsControl?
-    let geoCoder = CLGeocoder()
-    
-    @IBOutlet weak var locationTextField: UITextField!{
+    @IBOutlet weak var textField: UITextField!{
         didSet{
-            locationTextField.delegate = self
+            textField.delegate = self
         }
     }
     
@@ -35,8 +32,6 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupWeatherScrollView()
-        
-        locationSuggestionsControl = LocationSuggestionsControl(textField: locationTextField)
         
         pageControl.numberOfPages = 2
         pageControl.currentPage = 0
@@ -68,13 +63,6 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
         }
     }
     
-    func newLoadWithHud(location: CLLocation) {
-        SVProgressHUD.show()
-        self.newWeather(location: location) {
-            SVProgressHUD.popActivity()
-        }
-    }
-    
     func load(completion: @escaping () -> ()) {
         if let location = Locator.main.location
         {
@@ -87,6 +75,7 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
         } else {
             Alert.error("Please Enable Location Services in Settings For Weather Data")
         }
+        
     }
     
     func reloadUI() {
@@ -104,15 +93,6 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
         }
     }
     
-    func newWeather(location: CLLocation, completion: @escaping () -> ()) {
-        WeatherApiClient.sharedDWApi.retrieveDarkSkyWeather(latitude: String(location.coordinate.latitude), longitude: String(location.coordinate.longitude)) { result in
-            if (result) {
-                self.reloadUI()
-            }
-            completion()
-        }
-    }
-    
     //MARK: - Scrollview Methods
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pageIndex = round(scrollView.contentOffset.x/view.frame.width)
@@ -120,22 +100,6 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
     }
     
     //MARK: - Textfield Methods
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        geoCoder.geocodeAddressString(locationTextField.text ?? "") { (placemark, error) in
-            guard
-                let placemark = placemark,
-                let location = placemark.first?.location
-                else {
-                    Alert.error("This location doesn't exist anymore.")
-                    return
-            }
-            self.newLoadWithHud(location: location)
-        }
-    }
+
 }
 
