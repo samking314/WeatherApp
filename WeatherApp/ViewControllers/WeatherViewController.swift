@@ -118,21 +118,18 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
     
     //MARK: - Textfield Methods
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
         geoCoder.geocodeAddressString(locationTextField.text ?? "") { (placemark, error) in
             guard
                 let placemark = placemark,
                 let location = placemark.first?.location
-            else {
-//                Alert.error("Error finding this location. Please enter a different location.")
-                return
+                else {
+                    Alert.error(vc: self, message: "Unable to find this location. Please enter a different location.")
+                    return
             }
             self.newLoadWithHud(location: location)
+            textField.resignFirstResponder()
         }
+        return true
     }
     
     //MARK: - Notification Methods

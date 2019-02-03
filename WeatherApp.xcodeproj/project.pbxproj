@@ -131,7 +131,6 @@
 		3CE8B518220115A70009D942 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
-				3CE8B576220743240009D942 /* Archived */,
 				3CE8B5692204F9D80009D942 /* Helpers */,
 				3CE8B55E22049E7D0009D942 /* Views */,
 				3CE8B551220206F30009D942 /* API */,
@@ -237,17 +236,10 @@
 		3CE8B5692204F9D80009D942 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				3CE8B56A2204F9F40009D942 /* Alert.swift */,
 				3CE8B56C2205C9540009D942 /* Locator.swift */,
 			);
 			path = Helpers;
-			sourceTree = "<group>";
-		};
-		3CE8B576220743240009D942 /* Archived */ = {
-			isa = PBXGroup;
-			children = (
-				3CE8B56A2204F9F40009D942 /* Alert.swift */,
-			);
-			path = Archived;
 			sourceTree = "<group>";
 		};
 		7A21CFD6F51C5076227F6DA0 /* Frameworks */ = {
