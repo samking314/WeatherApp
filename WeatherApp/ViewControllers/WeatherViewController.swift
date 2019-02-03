@@ -40,6 +40,14 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
         
         loadWithHud()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(onDidReceiveWeatherData), name: .didUpdatedWeatherData, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
+    }
 
     func setupWeatherScrollView() {
         scrollView.showsHorizontalScrollIndicator = false
@@ -133,12 +141,13 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
     }
     
     //MARK: - Notification Methods
-    @objc func methodOfReceivedNotification(notification: Notification) {
-        NotificationCenter.default.addObserver(self, selector: #selector(self.updateWeather), name: Notification.Name("UpdatedWeather"), object: nil)
-    }
-    
-    @objc func updateWeather() {
+    @objc func onDidReceiveWeatherData(_ notification:Notification) {
         self.loadWithHud()
     }
+   
+}
+
+extension Notification.Name {
+    static let didUpdatedWeatherData = Notification.Name("didReceiveWeatherData")
 }
 

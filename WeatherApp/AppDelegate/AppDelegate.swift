@@ -20,10 +20,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        // Setup Notifications
+//        let options: UNAuthorizationOptions = [.alert, .sound];
+//        center.requestAuthorization(options: options) {
+//            (granted, error) in
+//            if !granted {
+//                print("Something went wrong")
+//            }
+//        }
+        
         // Setup Location Manager
         locationManager = CLLocationManager()
         locationManager.delegate = self
-        locationManager.requestAlwaysAuthorization()
         
         // Fetch data once every 10 seconds
         UIApplication.shared.setMinimumBackgroundFetchInterval(10)
@@ -31,14 +39,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         return true
     }
     
+    //Location Manager Func
+    func locationManager(_ manager: CLLocationManager,
+                         didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .notDetermined:
+            locationManager.requestAlwaysAuthorization()
+            break
+        case .authorizedWhenInUse:
+            locationManager.startUpdatingLocation()
+            updateWeather()
+            break
+        case .authorizedAlways:
+            locationManager.startUpdatingLocation()
+            updateWeather()
+            break
+        default:
+            break
+        }
+    }
+    
     func application(_ application: UIApplication,
                      performFetchWithCompletionHandler completionHandler:
         @escaping (UIBackgroundFetchResult) -> Void) {
+        updateWeather()
+    }
+    
+    func updateWeather() {
         if CLLocationManager.locationServicesEnabled(), let location = Locator.main.location
         {
             WeatherApiClient.sharedDSWApi.retrieveDarkSkyWeather(latitude: String(location.coordinate.latitude), longitude: String(location.coordinate.longitude)) { result in
                 if (result) {
-                    NotificationCenter.default.post(name: Notification.Name("UpdatedWeather"), object: nil)
+                    NotificationCenter.default.post(name: Notification.Name("didReceiveWeatherData"), object: nil)
                 }
             }
         }
