@@ -6,13 +6,6 @@
 //  Copyright © 2019 Sam King. All rights reserved.
 //
 
-/**************
- 
- TO DO:
- 1. Grab first bit of data from Dark Sky API
-
- **************/
-
 import Foundation
 import Alamofire
 import AlamofireObjectMapper
@@ -61,7 +54,6 @@ final class WeatherApiClient {
                 UserDefaults.standard.set(darkSkyWeather.forecastTempIcon ?? "rainy", forKey: "forecastWeatherIcon")
                 completion(true)
             } else {
-                Alert.error("Error retrieving updated Weather Info")
                 completion(false)
             }
         }

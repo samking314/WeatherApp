@@ -46,7 +46,7 @@
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
                     <connections>
-                        <outlet property="locationTextField" destination="ivU-X6-l3X" id="bYz-Y1-6Ls"/>
+                        <outlet property="locationTextField" destination="ivU-X6-l3X" id="dUN-4W-VaC"/>
                         <outlet property="pageControl" destination="azK-oR-AdT" id="ETn-fE-Poj"/>
                         <outlet property="scrollView" destination="2uS-Ub-Fyp" id="tJ9-g4-tec"/>
                     </connections>
