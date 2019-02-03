@@ -164,12 +164,12 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
             let curricon = WeatherStore.shared.currentWeatherIcon,
             let foresum = WeatherStore.shared.forecastSummary,
             let foreicon = WeatherStore.shared.forecastWeatherIcon{
-            if String(currtemp) + "°F" != self.currWeather.temp.text {return true}
-            if String(curricon) != self.currWeather.icon.text {return true}
-            if String(foresum) != self.foreWeather.forecast.text {return true}
-            if String(foreicon) != self.foreWeather.icon.text {return true}
+            if String(currtemp) + "°F" != self.currWeather.temp.text {return false}
+            if String(curricon) != self.currWeather.icon.text {return false}
+            if String(foresum) != self.foreWeather.forecast.text {return false}
+            if String(foreicon) != self.foreWeather.icon.text {return false}
         }
-        return false
+        return true
     }
    
 }

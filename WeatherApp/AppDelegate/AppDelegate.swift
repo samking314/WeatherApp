@@ -45,7 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     //Location Manager Func
     func locationManager(_ manager: CLLocationManager,
                          didChangeAuthorization status: CLAuthorizationStatus) {
-        print("locationManager")
         switch status {
         case .notDetermined:
             locationManager.requestAlwaysAuthorization()
