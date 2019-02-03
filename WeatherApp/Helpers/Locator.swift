@@ -39,7 +39,14 @@ class Locator: NSObject {
 extension Locator: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        //TODO: use updated location to serve new weather
+        if CLLocationManager.locationServicesEnabled(), let location = Locator.main.location
+        {
+            WeatherApiClient.sharedDSWApi.retrieveDarkSkyWeather(latitude: String(location.coordinate.latitude), longitude: String(location.coordinate.longitude)) { result in
+                if result {
+                    NotificationCenter.default.post(name: Notification.Name("didReceiveWeatherData"), object: self, userInfo: ["background":false])
+                }
+            }
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {

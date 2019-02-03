@@ -39,25 +39,7 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
         pageControl.numberOfPages = 2
         pageControl.currentPage = 0
         
-//        loadWithHud()
-//        let content = UNMutableNotificationContent()
-//        content.title = NSString.localizedUserNotificationString(forKey: "Wake up!", arguments: nil)
-//        content.body = NSString.localizedUserNotificationString(forKey: "Rise and shine! It's morning time!",
-//                                                                arguments: nil)
-//        // Configure the trigger for a 7am wakeup.
-//        var dateInfo = DateComponents()
-//        dateInfo.hour = 13
-//        dateInfo.minute = 41
-//        let trigger = UNCalendarNotificationTrigger(dateMatching: dateInfo, repeats: false)
-//        
-//        // Create the request object.
-//        let request = UNNotificationRequest(identifier: "MorningAlarm", content: content, trigger: trigger)
-//        let center = UNUserNotificationCenter.current()
-//        center.add(request) { (error : Error?) in
-//            if let theError = error {
-//                print(theError.localizedDescription)
-//            }
-//        }
+        loadWithHud()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -103,7 +85,7 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
         if CLLocationManager.locationServicesEnabled(), let location = Locator.main.location
         {
             WeatherApiClient.sharedDSWApi.retrieveDarkSkyWeather(latitude: String(location.coordinate.latitude), longitude: String(location.coordinate.longitude)) { result in
-                if (result) {
+                if result {
                     self.reloadUI()
                 } else {
                     Alert.error(vc: self, message: "Error retrieving updated Weather Info")
@@ -130,7 +112,7 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
     
     func newWeather(location: CLLocation, completion: @escaping () -> ()) {
         WeatherApiClient.sharedDSWApi.retrieveDarkSkyWeather(latitude: String(location.coordinate.latitude), longitude: String(location.coordinate.longitude)) { result in
-            if (result) {
+            if result {
                 self.reloadUI()
             }
             completion()
@@ -152,7 +134,7 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
                 else {
                     Alert.error(vc: self, message: "Unable to find this location. Please enter a different location.")
                     return
-            }
+                }
             self.newLoadWithHud(location: location)
             textField.resignFirstResponder()
         }
@@ -161,7 +143,33 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
     
     //MARK: - Notification Methods
     @objc func onDidReceiveWeatherData(_ notification:Notification) {
-        self.loadWithHud()
+        print("onDidReceiveWeatherData")
+        if let data = notification.userInfo as? [String: Bool]
+        {
+            if let background = data["background"] {
+                let same = checkWeatherChanged()
+                if background, !same {
+                    Notifications.displayWeatherChangeNotif()
+                } else if same { //don't update UI if same weather data
+                    return
+                }
+            }
+            self.reloadUI()
+        }
+    }
+    
+    //check for weather changed since last checked
+    func checkWeatherChanged() -> Bool {
+        if let currtemp = WeatherStore.shared.currentTemperature,
+            let curricon = WeatherStore.shared.currentWeatherIcon,
+            let foresum = WeatherStore.shared.forecastSummary,
+            let foreicon = WeatherStore.shared.forecastWeatherIcon{
+            if String(currtemp) + "°F" != self.currWeather.temp.text {return true}
+            if String(curricon) != self.currWeather.icon.text {return true}
+            if String(foresum) != self.foreWeather.forecast.text {return true}
+            if String(foreicon) != self.foreWeather.icon.text {return true}
+        }
+        return false
     }
    
 }
