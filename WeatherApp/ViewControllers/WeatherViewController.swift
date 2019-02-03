@@ -130,7 +130,7 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
                 let placemark = placemark,
                 let location = placemark.first?.location
             else {
-                Alert.error("This location doesn't exist anymore.")
+                Alert.error("Error finding this location. Please enter a different location.")
                 return
             }
             self.newLoadWithHud(location: location)
