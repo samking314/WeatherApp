@@ -75,15 +75,13 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
     func load(completion: @escaping () -> ()) {
         if let location = Locator.main.location
         {
-            WeatherApiClient.sharedDWApi.retrieveDarkSkyWeather(latitude: String(location.coordinate.latitude), longitude: String(location.coordinate.longitude)) { result in
+            WeatherApiClient.sharedDSWApi.retrieveDarkSkyWeather(latitude: String(location.coordinate.latitude), longitude: String(location.coordinate.longitude)) { result in
                 if (result) {
                     self.reloadUI()
                 } else {
                     Alert.error("Error retrieving updated Weather Info")
                 }
             }
-        } else {
-            Alert.error("Please Enable Location Services in Settings For Weather Data")
         }
         completion()
     }
@@ -104,7 +102,7 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
     }
     
     func newWeather(location: CLLocation, completion: @escaping () -> ()) {
-        WeatherApiClient.sharedDWApi.retrieveDarkSkyWeather(latitude: String(location.coordinate.latitude), longitude: String(location.coordinate.longitude)) { result in
+        WeatherApiClient.sharedDSWApi.retrieveDarkSkyWeather(latitude: String(location.coordinate.latitude), longitude: String(location.coordinate.longitude)) { result in
             if (result) {
                 self.reloadUI()
             }
@@ -135,6 +133,15 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
             }
             self.newLoadWithHud(location: location)
         }
+    }
+    
+    //MARK: - Notification Methods
+    @objc func methodOfReceivedNotification(notification: Notification) {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateWeather), name: Notification.Name("UpdatedWeather"), object: nil)
+    }
+    
+    @objc func updateWeather() {
+        self.loadWithHud()
     }
 }
 

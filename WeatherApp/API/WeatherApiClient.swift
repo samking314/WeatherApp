@@ -33,7 +33,7 @@ final class WeatherApiClient {
     }
     
     //MARK: - Dark Sky API
-    static let sharedDWApi: WeatherApiClient = {
+    static let sharedDSWApi: WeatherApiClient = {
         return WeatherApiClient(baseUrl: WeatherApiConfig.dwAuthenticatedBaseURL)
     }()
     

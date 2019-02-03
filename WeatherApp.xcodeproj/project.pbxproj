@@ -18,7 +18,6 @@
 		3CE8B54D220203FD0009D942 /* DarkSkyConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE8B54C220203FD0009D942 /* DarkSkyConfig.swift */; };
 		3CE8B556220207A00009D942 /* WeatherApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE8B555220207A00009D942 /* WeatherApiClient.swift */; };
 		3CE8B55922020E910009D942 /* DarkSkyWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE8B55822020E910009D942 /* DarkSkyWeather.swift */; };
-		3CE8B55B220321070009D942 /* DarkSkyGenResp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE8B55A220321070009D942 /* DarkSkyGenResp.swift */; };
 		3CE8B55D220321680009D942 /* WeatherApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE8B55C220321680009D942 /* WeatherApiError.swift */; };
 		3CE8B56022049EA60009D942 /* CurrentWeather.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CE8B55F22049EA60009D942 /* CurrentWeather.xib */; };
 		3CE8B5622204A00F0009D942 /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE8B5612204A00F0009D942 /* CurrentWeather.swift */; };
@@ -67,7 +66,6 @@
 		3CE8B54C220203FD0009D942 /* DarkSkyConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkSkyConfig.swift; sourceTree = "<group>"; };
 		3CE8B555220207A00009D942 /* WeatherApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherApiClient.swift; sourceTree = "<group>"; };
 		3CE8B55822020E910009D942 /* DarkSkyWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkSkyWeather.swift; sourceTree = "<group>"; };
-		3CE8B55A220321070009D942 /* DarkSkyGenResp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkSkyGenResp.swift; sourceTree = "<group>"; };
 		3CE8B55C220321680009D942 /* WeatherApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherApiError.swift; sourceTree = "<group>"; };
 		3CE8B55F22049EA60009D942 /* CurrentWeather.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrentWeather.xib; sourceTree = "<group>"; };
 		3CE8B5612204A00F0009D942 /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
@@ -133,7 +131,6 @@
 		3CE8B518220115A70009D942 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
-				3CE8B57022060DBF0009D942 /* Archived */,
 				3CE8B5692204F9D80009D942 /* Helpers */,
 				3CE8B55E22049E7D0009D942 /* Views */,
 				3CE8B551220206F30009D942 /* API */,
@@ -245,14 +242,6 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		3CE8B57022060DBF0009D942 /* Archived */ = {
-			isa = PBXGroup;
-			children = (
-				3CE8B55A220321070009D942 /* DarkSkyGenResp.swift */,
-			);
-			path = Archived;
-			sourceTree = "<group>";
-		};
 		7A21CFD6F51C5076227F6DA0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -344,6 +333,11 @@
 				TargetAttributes = {
 					3CE8B515220115A70009D942 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					3CE8B52B220115AB0009D942 = {
 						CreatedOnToolsVersion = 10.1;
@@ -497,7 +491,6 @@
 				3CE8B51A220115A70009D942 /* AppDelegate.swift in Sources */,
 				3CE8B51C220115A70009D942 /* WeatherViewController.swift in Sources */,
 				3CE8B56B2204F9F40009D942 /* Alert.swift in Sources */,
-				3CE8B55B220321070009D942 /* DarkSkyGenResp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
