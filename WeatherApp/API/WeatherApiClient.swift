@@ -45,7 +45,7 @@ final class WeatherApiClient {
                                 longitude: String, completion: @escaping (Bool) -> ()) {
         let location = latitude + "," + longitude
         let url = makeDarkSkyAPIUrl(path: location)
-        UserStore.shared.weatherApiType = DarkSkyConfig.apiname
+        WeatherStore.shared.weatherApiType = DarkSkyConfig.apiname
         Alamofire.request(url, method: .get).responseObject { (response: DataResponse<DarkSkyWeather>) in
             if let darkSkyWeather = response.result.value {
                 UserDefaults.standard.set(String(darkSkyWeather.currentTemp ?? 0), forKey: "currentTemperature")

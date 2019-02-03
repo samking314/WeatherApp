@@ -1,5 +1,5 @@
 //
-//  UserStore.swift
+//  WeatherStore.swift
 //  WeatherApp
 //
 //  Created by Sam King on 2/2/19.
@@ -8,9 +8,9 @@
 
 import Foundation
 
-class UserStore {
+class WeatherStore {
     
-    static let shared: UserStore = UserStore()
+    static let shared: WeatherStore = WeatherStore()
     
     var weatherApiType: String?
     
@@ -30,7 +30,7 @@ class UserStore {
             if let apiType = weatherApiType{
                 switch apiType{
                 case DarkSkyConfig.apiname:
-                    if let icon = UserStore.weatherIcons[currIcon] {
+                    if let icon = WeatherStore.weatherIcons[currIcon] {
                         return icon
                     }
                 default:
@@ -56,7 +56,7 @@ class UserStore {
             if let apiType = weatherApiType{
                 switch apiType{
                 case DarkSkyConfig.apiname:
-                    if let icon = UserStore.weatherIcons[foreIcon] {
+                    if let icon = WeatherStore.weatherIcons[foreIcon] {
                         return icon
                     }
                 default:

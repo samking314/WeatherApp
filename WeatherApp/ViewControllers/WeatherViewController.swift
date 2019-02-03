@@ -9,6 +9,7 @@
 import UIKit
 import SVProgressHUD
 import CoreLocation
+import UserNotifications
 
 class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegate{
     
@@ -38,7 +39,25 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
         pageControl.numberOfPages = 2
         pageControl.currentPage = 0
         
-        loadWithHud()
+//        loadWithHud()
+//        let content = UNMutableNotificationContent()
+//        content.title = NSString.localizedUserNotificationString(forKey: "Wake up!", arguments: nil)
+//        content.body = NSString.localizedUserNotificationString(forKey: "Rise and shine! It's morning time!",
+//                                                                arguments: nil)
+//        // Configure the trigger for a 7am wakeup.
+//        var dateInfo = DateComponents()
+//        dateInfo.hour = 13
+//        dateInfo.minute = 41
+//        let trigger = UNCalendarNotificationTrigger(dateMatching: dateInfo, repeats: false)
+//        
+//        // Create the request object.
+//        let request = UNNotificationRequest(identifier: "MorningAlarm", content: content, trigger: trigger)
+//        let center = UNUserNotificationCenter.current()
+//        center.add(request) { (error : Error?) in
+//            if let theError = error {
+//                print(theError.localizedDescription)
+//            }
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,7 +100,7 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
     }
     
     func load(completion: @escaping () -> ()) {
-        if let location = Locator.main.location
+        if CLLocationManager.locationServicesEnabled(), let location = Locator.main.location
         {
             WeatherApiClient.sharedDSWApi.retrieveDarkSkyWeather(latitude: String(location.coordinate.latitude), longitude: String(location.coordinate.longitude)) { result in
                 if (result) {
@@ -95,16 +114,16 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
     }
     
     func reloadUI() {
-        if let currtemp = UserStore.shared.currentTemperature {
+        if let currtemp = WeatherStore.shared.currentTemperature {
             self.currWeather.temp.text = String(currtemp) + "°F"
         }
-        if let curricon = UserStore.shared.currentWeatherIcon {
+        if let curricon = WeatherStore.shared.currentWeatherIcon {
             self.currWeather.icon.text = String(curricon)
         }
-        if let foresum = UserStore.shared.forecastSummary {
+        if let foresum = WeatherStore.shared.forecastSummary {
             self.foreWeather.forecast.text = String(foresum)
         }
-        if let foreicon = UserStore.shared.forecastWeatherIcon {
+        if let foreicon = WeatherStore.shared.forecastWeatherIcon {
             self.foreWeather.icon.text = String(foreicon)
         }
     }
