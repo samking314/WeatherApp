@@ -79,7 +79,7 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
                 if (result) {
                     self.reloadUI()
                 } else {
-//                    Alert.error("Error retrieving updated Weather Info")
+                    Alert.error(vc: self, message: "Error retrieving updated Weather Info")
                 }
             }
         }
