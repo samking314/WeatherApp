@@ -7,28 +7,25 @@
 //
 
 import XCTest
+import ObjectMapper
 @testable import WeatherApp
 
 class WeatherAppTests: XCTestCase {
-
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+    
+    var dsWeather: DarkSkyWeather!
+    var weatherDictionary: [String: Any] = ["currently":["temperature":60,"icon":"cloudy"],"daily":["icon":"clear-day","summary":"No precipitation throughout the week, with high temperatures peaking at 77°F on Thursday."]]
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        dsWeather = nil
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testDarkSkyWeather() {
+        dsWeather = Mapper<DarkSkyWeather>().map(JSON: weatherDictionary)
+        
+        XCTAssertEqual(dsWeather?.currentTemp, 60)
+        XCTAssertEqual(dsWeather?.currentTempIcon, "cloudy")
+        XCTAssertEqual(dsWeather?.forecastTempIcon, "clear-day")
+        XCTAssertEqual(dsWeather?.forecastSum, "No precipitation throughout the week, with high temperatures peaking at 77°F on Thursday.")
     }
 
 }

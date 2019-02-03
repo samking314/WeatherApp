@@ -141,6 +141,7 @@
 				3CE8B54A220203B40009D942 /* AppDelegate */,
 				3CE8B5492202039A0009D942 /* ViewControllers */,
 				3CE8B522220115AB0009D942 /* Assets.xcassets */,
+				3CE8B51F220115A70009D942 /* Main.storyboard */,
 				3CE8B524220115AB0009D942 /* LaunchScreen.storyboard */,
 				3CE8B527220115AB0009D942 /* Info.plist */,
 			);
@@ -168,7 +169,6 @@
 		3CE8B5492202039A0009D942 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				3CE8B51F220115A70009D942 /* Main.storyboard */,
 				3CE8B51B220115A70009D942 /* WeatherViewController.swift */,
 			);
 			path = ViewControllers;
