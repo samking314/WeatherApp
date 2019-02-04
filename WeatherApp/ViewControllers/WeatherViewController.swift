@@ -144,15 +144,12 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
     //MARK: - Notification Methods
     @objc func onDidReceiveWeatherData(_ notification:Notification) {
         print("onDidReceiveWeatherData")
-        if let data = notification.userInfo as? [String: Bool]
-        {
-            if let background = data["background"] {
-                let same = checkWeatherChanged()
-                if background, !same {
-                    Notifications.displayWeatherChangeNotif()
-                } else if same { //don't update UI if same weather data
-                    return
-                }
+        if UIApplication.shared.applicationState == .background {
+            let same = checkWeatherChanged()
+            if !same {
+                Notifications.displayWeatherChangeNotif()
+            } else { //don't update UI if same weather data
+                return
             }
             self.reloadUI()
         }

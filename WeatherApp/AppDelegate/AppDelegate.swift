@@ -17,8 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     var locationManager: CLLocationManager!
     
     let center = UNUserNotificationCenter.current()
-    
-    var background: Bool = false
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -51,11 +49,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             break
         case .authorizedWhenInUse:
             locationManager.startUpdatingLocation()
-            updateWeather(background: background)
+            updateWeather()
             break
         case .authorizedAlways:
             locationManager.startUpdatingLocation()
-            updateWeather(background: background)
+            updateWeather()
             break
         default:
             break
@@ -65,16 +63,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func application(_ application: UIApplication,
                      performFetchWithCompletionHandler completionHandler:
         @escaping (UIBackgroundFetchResult) -> Void) {
-        updateWeather(background: background)
+        updateWeather()
         completionHandler(.newData)
     }
     
-    func updateWeather(background: Bool) {
+    func updateWeather() {
         if let location = Locator.main.location
         {
             WeatherApiClient.sharedDSWApi.retrieveDarkSkyWeather(latitude: String(location.coordinate.latitude), longitude: String(location.coordinate.longitude)) { result in
                 if result {
-                    NotificationCenter.default.post(name: Notification.Name("didReceiveWeatherData"), object: self, userInfo: ["background":background])
+                    NotificationCenter.default.post(name: Notification.Name("didReceiveWeatherData"), object: nil)
                 }
             }
         }
@@ -115,12 +113,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        background = true
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-        background = false
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
