@@ -32,6 +32,8 @@ class WeatherStore {
                 case DarkSkyConfig.apiname:
                     if let icon = WeatherStore.weatherIcons[currIcon] {
                         return icon
+                    } else {
+                        return WeatherStore.weatherIcons["default"]
                     }
                 default:
                     return currIcon
@@ -58,6 +60,8 @@ class WeatherStore {
                 case DarkSkyConfig.apiname:
                     if let icon = WeatherStore.weatherIcons[foreIcon] {
                         return icon
+                    } else {
+                        return WeatherStore.weatherIcons["default"]
                     }
                 default:
                     return foreIcon

@@ -6,6 +6,14 @@
 //  Copyright © 2019 Sam King. All rights reserved.
 //
 
+/***************
+ 
+ TODO:
+ 1. Improve error handling
+ 2. Validate local notifications processed correctly
+ 
+ ***************/
+
 import UIKit
 import CoreLocation
 import UserNotifications
@@ -26,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         center.requestAuthorization(options: options) {
             (granted, error) in
             if !granted {
-                print("We need you to say yes")
+                print("User won't authorize notifs")
             }
         }
         
@@ -40,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         return true
     }
     
-    //Location Manager Func
+    //MARK: - Handle Location Services
     func locationManager(_ manager: CLLocationManager,
                          didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
@@ -49,32 +57,57 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             break
         case .authorizedWhenInUse:
             locationManager.startUpdatingLocation()
-            updateWeather()
+            updateWeather() { result in
+                if result {
+                    self.reloadUI()
+                }
+            }
             break
         case .authorizedAlways:
             locationManager.startUpdatingLocation()
-            updateWeather()
+            updateWeather() { result in
+                if result {
+                    self.reloadUI()
+                }
+            }
             break
         default:
             break
         }
     }
     
+    //MARK: - Handle Background
     func application(_ application: UIApplication,
                      performFetchWithCompletionHandler completionHandler:
         @escaping (UIBackgroundFetchResult) -> Void) {
-        updateWeather()
-        completionHandler(.newData)
+        updateWeather() { result in
+            if result {
+                self.reloadUI()
+                completionHandler(.newData)
+            } else {
+                completionHandler(.failed)
+            }
+        }
     }
     
-    func updateWeather() {
+    func updateWeather(completion: @escaping (Bool) -> ()) {
+        var updated = false
         if let location = Locator.main.location
         {
             WeatherApiClient.sharedDSWApi.retrieveDarkSkyWeather(latitude: String(location.coordinate.latitude), longitude: String(location.coordinate.longitude)) { result in
                 if result {
-                    NotificationCenter.default.post(name: Notification.Name("didReceiveWeatherData"), object: nil)
+                    Notifications.displayWeatherChangeNotif(center: self.center)
+                    updated = true
                 }
             }
+        }
+        completion(updated)
+    }
+    
+    func reloadUI() {
+        if self.window?.rootViewController is WeatherViewController {
+            let vc = self.window?.rootViewController as! WeatherViewController
+            vc.checkReloadUI()
         }
     }
     
@@ -94,6 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         case UNNotificationDismissActionIdentifier:
             print("Dismiss Action")
         case UNNotificationDefaultActionIdentifier:
+            reloadUI()
             print("Default")
         case "Snooze":
             print("Snooze")

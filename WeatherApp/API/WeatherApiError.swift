@@ -6,6 +6,8 @@
 //  Copyright © 2019 Sam King. All rights reserved.
 //
 
+//Currently unused
+
 import Foundation
 
 enum WeatherApiError: Error {
@@ -25,7 +27,7 @@ extension WeatherApiError: LocalizedError {
         case .unknownError:
             return "Unknown error occured"
         case .darkSkyDataError:
-            return "Unknown errors. Server side error [corrupted_data]"
+            return "Dark Sky Data error occured"
         }
     }
 }

@@ -6,6 +6,13 @@
 //  Copyright © 2019 Sam King. All rights reserved.
 //
 
+/***************
+ 
+ TODO:
+ 1. Indicate the location of the weather(uilabel maybe below 'Current Weather' in main.storyboard)
+ 
+ ***************/
+
 import UIKit
 import SVProgressHUD
 import CoreLocation
@@ -43,11 +50,7 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(self, selector: #selector(onDidReceiveWeatherData), name: .didUpdatedWeatherData, object: nil)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self)
+        self.reloadUI()
     }
 
     func setupWeatherScrollView() {
@@ -74,9 +77,9 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
         }
     }
     
-    func newLoadWithHud(location: CLLocation) {
+    func newLocationLoadWithHud(location: CLLocation) {
         SVProgressHUD.show()
-        self.newWeather(location: location) {
+        newLocationWeather(location: location) {
             SVProgressHUD.popActivity()
         }
     }
@@ -110,7 +113,14 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
         }
     }
     
-    func newWeather(location: CLLocation, completion: @escaping () -> ()) {
+    func checkReloadUI() {
+        let same = checkWeatherChanged()
+        if !same {
+            reloadUI()
+        }
+    }
+    
+    func newLocationWeather(location: CLLocation, completion: @escaping () -> ()) {
         WeatherApiClient.sharedDSWApi.retrieveDarkSkyWeather(latitude: String(location.coordinate.latitude), longitude: String(location.coordinate.longitude)) { result in
             if result {
                 self.reloadUI()
@@ -135,43 +145,27 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
                     Alert.error(vc: self, message: "Unable to find this location. Please enter a different location.")
                     return
                 }
-            self.newLoadWithHud(location: location)
-            textField.resignFirstResponder()
+            self.newLocationLoadWithHud(location: location)
         }
+        textField.resignFirstResponder()
         return true
     }
     
-    //MARK: - Notification Methods
-    @objc func onDidReceiveWeatherData(_ notification:Notification) {
-        print("onDidReceiveWeatherData")
-        if UIApplication.shared.applicationState == .background {
-            let same = checkWeatherChanged()
-            if !same {
-                Notifications.displayWeatherChangeNotif()
-            } else { //don't update UI if same weather data
-                return
-            }
-            self.reloadUI()
-        }
-    }
-    
-    //check for weather changed since last checked
+    //MARK: - Helper Methods
     func checkWeatherChanged() -> Bool {
         if let currtemp = WeatherStore.shared.currentTemperature,
             let curricon = WeatherStore.shared.currentWeatherIcon,
             let foresum = WeatherStore.shared.forecastSummary,
             let foreicon = WeatherStore.shared.forecastWeatherIcon{
-            if String(currtemp) + "°F" == self.currWeather.temp.text {return true}
-            if String(curricon) == self.currWeather.icon.text {return true}
-            if String(foresum) == self.foreWeather.forecast.text {return true}
-            if String(foreicon) == self.foreWeather.icon.text {return true}
+            if String(currtemp) + "°F" == self.currWeather.temp.text,
+                String(curricon) == self.currWeather.icon.text,
+                String(foresum) == self.foreWeather.forecast.text,
+                String(foreicon) == self.foreWeather.icon.text {
+                return true
+            }
         }
         return false
     }
    
-}
-
-extension Notification.Name {
-    static let didUpdatedWeatherData = Notification.Name("didReceiveWeatherData")
 }
 

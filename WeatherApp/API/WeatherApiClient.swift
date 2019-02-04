@@ -6,6 +6,13 @@
 //  Copyright © 2019 Sam King. All rights reserved.
 //
 
+/***************
+ 
+ TODO:
+ 1. Implement error handling with WeatherApiClient in completion func for retrieveDarkSkyWeather()
+ 
+ ***************/
+
 import Foundation
 import Alamofire
 import AlamofireObjectMapper

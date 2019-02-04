@@ -12,16 +12,16 @@ import UserNotifications
 
 class Notifications: NSObject {
     
-    class func displayWeatherChangeNotif() {
+    class func displayWeatherChangeNotif(center: UNUserNotificationCenter) {
         let content = UNMutableNotificationContent()
         content.title = NSString.localizedUserNotificationString(forKey: "The weather has changed!", arguments: nil)
         content.body = NSString.localizedUserNotificationString(forKey: WeatherStore.shared.currentWeatherIcon ?? "open the app to find out...", arguments: nil)
         content.sound = UNNotificationSound.default
         
         // Deliver the notification in five seconds.
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
         let request = UNNotificationRequest(identifier: "UpdatedWeather", content: content, trigger: trigger) // Schedule the notification.
-        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: ["UpdatedWeather"]) //remove extraneous reqs
         center.add(request) { (error : Error?) in
             if let theError = error {
                 print("OUR ERROR :: \(theError)")

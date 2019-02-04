@@ -6,6 +6,14 @@
 //  Copyright © 2019 Sam King. All rights reserved.
 //
 
+/***************
+ 
+ TODO:
+ 1. +1 test to ensure sending correct params to WeatherApiClient
+ 2. +1 test to ensure receiving correct data from WeatherApiClient
+ 
+ ***************/
+
 import XCTest
 import ObjectMapper
 @testable import WeatherApp
