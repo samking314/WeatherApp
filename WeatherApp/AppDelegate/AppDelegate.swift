@@ -36,8 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         locationManager = CLLocationManager()
         locationManager.delegate = self
         
-        // Fetch data once every 10 seconds or so...
-        UIApplication.shared.setMinimumBackgroundFetchInterval(10)
+        // Fetch data
+        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
         
         return true
     }
@@ -66,10 +66,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                      performFetchWithCompletionHandler completionHandler:
         @escaping (UIBackgroundFetchResult) -> Void) {
         updateWeather(background: background)
+        completionHandler(.newData)
     }
     
     func updateWeather(background: Bool) {
-        if CLLocationManager.locationServicesEnabled(), let location = Locator.main.location
+        if let location = Locator.main.location
         {
             WeatherApiClient.sharedDSWApi.retrieveDarkSkyWeather(latitude: String(location.coordinate.latitude), longitude: String(location.coordinate.longitude)) { result in
                 if result {

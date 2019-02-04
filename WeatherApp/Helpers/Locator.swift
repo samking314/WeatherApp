@@ -6,13 +6,6 @@
 //  Copyright © 2019 Sam King. All rights reserved.
 //
 
-/**************
- 
- TO DO:
- 1. use updated location to serve new weather
- 
- **************/
-
 import Foundation
 import CoreLocation
 
@@ -39,14 +32,7 @@ class Locator: NSObject {
 extension Locator: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if CLLocationManager.locationServicesEnabled(), let location = Locator.main.location
-        {
-            WeatherApiClient.sharedDSWApi.retrieveDarkSkyWeather(latitude: String(location.coordinate.latitude), longitude: String(location.coordinate.longitude)) { result in
-                if result {
-                    NotificationCenter.default.post(name: Notification.Name("didReceiveWeatherData"), object: self, userInfo: ["background":false])
-                }
-            }
-        }
+        NotificationCenter.default.post(name: .didUpdateLocation, object: self)
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -56,4 +42,8 @@ extension Locator: CLLocationManagerDelegate {
             locationManager.requestWhenInUseAuthorization()
         }
     }
+}
+
+extension Notification.Name {
+    static let didUpdateLocation = NSNotification.Name(rawValue: "LocatorDidUpdateLocation")
 }

@@ -82,7 +82,7 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
     }
     
     func load(completion: @escaping () -> ()) {
-        if CLLocationManager.locationServicesEnabled(), let location = Locator.main.location
+        if let location = Locator.main.location
         {
             WeatherApiClient.sharedDSWApi.retrieveDarkSkyWeather(latitude: String(location.coordinate.latitude), longitude: String(location.coordinate.longitude)) { result in
                 if result {
@@ -164,12 +164,12 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
             let curricon = WeatherStore.shared.currentWeatherIcon,
             let foresum = WeatherStore.shared.forecastSummary,
             let foreicon = WeatherStore.shared.forecastWeatherIcon{
-            if String(currtemp) + "°F" != self.currWeather.temp.text {return false}
-            if String(curricon) != self.currWeather.icon.text {return false}
-            if String(foresum) != self.foreWeather.forecast.text {return false}
-            if String(foreicon) != self.foreWeather.icon.text {return false}
+            if String(currtemp) + "°F" == self.currWeather.temp.text {return true}
+            if String(curricon) == self.currWeather.icon.text {return true}
+            if String(foresum) == self.foreWeather.forecast.text {return true}
+            if String(foreicon) == self.foreWeather.icon.text {return true}
         }
-        return true
+        return false
     }
    
 }
