@@ -87,11 +87,14 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
     func load(completion: @escaping () -> ()) {
         if let location = Locator.main.location
         {
-            WeatherApiClient.sharedDSWApi.retrieveDarkSkyWeather(latitude: String(location.coordinate.latitude), longitude: String(location.coordinate.longitude)) { result in
-                if result {
-                    self.reloadUI()
-                } else {
-                    Alert.error(vc: self, message: "Error retrieving updated Weather Info")
+            let queue = DispatchQueue(label: "com.WeatherApp.Utility", qos: .utility)
+            queue.async {
+                WeatherApiClient.sharedDSWApi.retrieveDarkSkyWeather(latitude: String(location.coordinate.latitude), longitude: String(location.coordinate.longitude)) { result in
+                    if result {
+                        self.reloadUI()
+                    } else {
+                        Alert.error(vc: self, message: "Error retrieving updated Weather Info")
+                    }
                 }
             }
         }
@@ -121,11 +124,14 @@ class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextField
     }
     
     func newLocationWeather(location: CLLocation, completion: @escaping () -> ()) {
-        WeatherApiClient.sharedDSWApi.retrieveDarkSkyWeather(latitude: String(location.coordinate.latitude), longitude: String(location.coordinate.longitude)) { result in
-            if result {
-                self.reloadUI()
+        let queue = DispatchQueue(label: "com.WeatherApp.Utility", qos: .utility)
+        queue.async {
+            WeatherApiClient.sharedDSWApi.retrieveDarkSkyWeather(latitude: String(location.coordinate.latitude), longitude: String(location.coordinate.longitude)) { result in
+                if result {
+                    self.reloadUI()
+                }
+                completion()
             }
-            completion()
         }
     }
     
