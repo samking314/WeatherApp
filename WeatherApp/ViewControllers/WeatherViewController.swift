@@ -20,6 +20,10 @@ import UserNotifications
 
 class WeatherViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegate{
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     let currWeather: CurrentWeather = .fromNib()
     var foreWeather: ForecastWeather = .fromNib()
     
