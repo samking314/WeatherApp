@@ -8,6 +8,9 @@ Also updates weather data through background app refresh.
 Notifications are sent to the user upon new Weather Data through background app refresh.
 
 # UI
+![alt text](/WeatherAppDisplay.png?raw=true "Title")
+
+
 Classic UIScrollView with pagecontrol
 
 # TODO
