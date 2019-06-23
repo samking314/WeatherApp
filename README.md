@@ -18,3 +18,4 @@ Validate local notifications are processed correctly in AppDelegate. For some re
 Place the current location of the Weather being displayed at top of Main.storyboard.
 Add more unit tests to confirm the WeatherApiClient calls are retrieving/generating the correct data.
 Add more data to the UI by including 5-day weather forecast, instead of a summary.
+Add more weather APIs to the WeatherApiClient file.
